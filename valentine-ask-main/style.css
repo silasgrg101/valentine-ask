@@ -1,0 +1,271 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("heart-bg.jpg");
+    font-family: "Pixelify Sans", sans-serif;
+    cursor: url("heart-cursor.png"), auto;
+}
+
+/* Envelope Screen */
+#envelope-container {
+    text-align: center;
+    cursor: pointer;
+    display: none;   /* hidden until audio is pressed */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+#envelope {
+    width: 200px;
+    animation: pulse 1.5s infinite;
+    cursor: pointer;
+}
+
+/* Letter Screen */
+#letter-container {
+    display: none;   /* hidden until envelope is clicked */
+    position: fixed;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.letter-window {
+    width: 90vw;
+    max-width: 800px;
+    aspect-ratio: 3/2;
+    padding: 20px 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url("window.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 12px;
+    gap: 1px;
+    padding-top: 180px;
+    transform: scale(1.2);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.letter-window.open {
+    transform: scale(1);
+    opacity: 1;
+}
+
+h1 { font-size: 30px; margin: 0; }
+p { font-size: 40px; }
+
+/* Cat */
+.cat { width: 250px; margin: 10px 0; transition: width 0.4s ease; }
+.letter-window.final .cat { width: 180px; }
+
+/* Buttons */
+.buttons { display: flex; justify-content: center; gap: 30px; position: relative; }
+.no-wrapper { position: relative; }
+.btn { width: 120px; cursor: pointer; user-select: none; }
+.yes-btn, .no-btn { width: 120px; height: auto; display: inline-block; }
+.yes-btn {
+    position: relative;
+    z-index: 2;
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+}
+.no-btn {
+    z-index: 1;
+    position: relative;
+    transition: transform 0.15s ease;
+    cursor: default;
+}
+
+.final-text {
+    font-size: 22px;
+    line-height: 1.4;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgba(255,240,240,0.5);
+    border-radius: 12px;
+}
+
+/* Audio Screen */
+#audio-container {
+    display: flex;   /* show this first */
+    position: fixed;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.audio-window {
+    width: 80vw;
+    max-width: 600px;
+    padding: 40px;
+    text-align: center;
+    background-color: rgba(255, 220, 230, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 0 20px pink;
+    font-family: "Pixelify Sans", sans-serif;
+    animation: popIn 0.6s ease;
+}
+
+.audio-window h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #ff4d88;
+}
+
+#audio-container button {
+    font-size: 24px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    background-color: #ff80aa;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#audio-container button:hover {
+    transform: scale(1.1);
+    background-color: #ff4d88;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+#play-audio-btn:hover {
+    animation: wiggle 0.4s ease infinite;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+    100% { transform: rotate(-3deg); }
+}
+
+/* Floating Hearts */
+.heart {
+    position: fixed;
+    bottom: 0;
+    font-size: 30px;
+    color: pink;
+    animation: floatUp 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* Big Heart Shape */
+.big-heart {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    animation: bounceAround 12s linear infinite alternate;
+}
+
+.mini-heart {
+    position: absolute;
+    font-size: 24px;
+    color: pink;
+    animation: pulse 2s infinite alternate;
+}
+
+/* Pulse effect for mini hearts */
+@keyframes pulse {
+    from { transform: scale(1); opacity: 0.8; }
+    to { transform: scale(1.3); opacity: 1; }
+}
+
+/* Bounce animation for the whole heart container */
+@keyframes bounceAround {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(40vw, 10vh); }
+    50%  { transform: translate(20vw, 60vh); }
+    75%  { transform: translate(-30vw, 30vh); }
+    100% { transform: translate(0, 0); }
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("heart-bg.jpg");
+    font-family: "Pixelify Sans", sans-serif;
+    overflow: hidden; /* keep hearts inside */
+}
+
+/* Generic heart style */
+.big-heart {
+    position: absolute;
+    font-size: 80px; /* large hearts */
+    pointer-events: none;
+}
+
+/* Each heart color */
+.heart-blue { color: blue; }
+.heart-green { color: green; }
+.heart-red { color: red; }
+.heart-purple { color: purple; }
+
+/* Bounce animations along borders */
+@keyframes moveTop {
+    0%   { left: 0; top: 0; }
+    50%  { left: calc(100% - 80px); top: 0; }
+    100% { left: 0; top: 0; }
+}
+
+@keyframes moveBottom {
+    0%   { left: calc(100% - 80px); top: calc(100% - 80px); }
+    50%  { left: 0; top: calc(100% - 80px); }
+    100% { left: calc(100% - 80px); top: calc(100% - 80px); }
+}
+
+@keyframes moveLeft {
+    0%   { left: 0; top: calc(100% - 80px); }
+    50%  { left: 0; top: 0; }
+    100% { left: 0; top: calc(100% - 80px); }
+}
+
+@keyframes moveRight {
+    0%   { left: calc(100% - 80px); top: 0; }
+    50%  { left: calc(100% - 80px); top: calc(100% - 80px); }
+    100% { left: calc(100% - 80px); top: 0; }
+}
+
+/* Assign animations */
+.heart-blue   { animation: moveTop 6s linear infinite; }
+.heart-green  { animation: moveBottom 8s linear infinite; }
+.heart-red    { animation: moveLeft 7s linear infinite; }
+.heart-purple { animation: moveRight 9s linear infinite; }
+
+.no-message {
+  background: rgba(255,240,240,0.8);
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 30px;
+  color: red;
+  font-family: "Pixelify Sans", sans-serif;
+  animation: fadeOut 4s forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.2); }
+}
